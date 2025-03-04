@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Login Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <script>
+        // Create form elements dynamically
+        const container = document.createElement('div');
+        container.className = 'login-container';
+
+        const heading = document.createElement('h2');
+        heading.innerText = 'Login';
+
+        const emailInput = document.createElement('input');
+        emailInput.type = 'email';
+        emailInput.placeholder = 'Enter your email';
+        emailInput.id = 'email';
+
+        const passwordInput = document.createElement('input');
+        passwordInput.type = 'password';
+        passwordInput.placeholder = 'Enter your password';
+        passwordInput.id = 'password';
+
+        const errorMessage = document.createElement('p');
+        errorMessage.className = 'error';
+        errorMessage.style.display = 'none';
+
+        const loginButton = document.createElement('button');
+        loginButton.innerText = 'Login';
+        loginButton.onclick = function () {
+            const email = emailInput.value.trim();
+            const password = passwordInput.value.trim();
+
+            if (!email || !password) {
+                errorMessage.innerText = 'All fields are required!';
+                errorMessage.style.display = 'block';
+                return;
+            }
+            if (!validateEmail(email)) {
+                errorMessage.innerText = 'Invalid email format!';
+                errorMessage.style.display = 'block';
+                return;
+            }
+            alert(`Email: ${email}\nPassword: ${password}`);
+        };
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        // Append elements to container
+        container.appendChild(heading);
+        container.appendChild(emailInput);
+        container.appendChild(passwordInput);
+        container.appendChild(errorMessage);
+        container.appendChild(loginButton);
+
+        // Append form to body
+        document.body.appendChild(container);
+    </script>
+</body>
+</html>
